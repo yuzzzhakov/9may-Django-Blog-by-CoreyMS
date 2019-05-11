@@ -20,8 +20,12 @@
     <meta charset="UTF-8">
 
 
+
     <!-- ---------------------CSS--------------------- -->
+
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    <!-- -------------------END CSS------------------- -->
 
 
     {% if title %}
@@ -48,8 +52,13 @@
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="#">Login</a>
-                        <a class="nav-item nav-link" href="#">Register</a>
+                        {% if user.is_authenticated %}
+                            <div class="nav-item nav-link disabled">You are authenticated as</div> <a class="nav-item nav-link" href="profile">{{ user.username }}</a>
+                            <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -60,6 +69,13 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
