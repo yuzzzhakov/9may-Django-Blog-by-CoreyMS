@@ -25,7 +25,7 @@ SECRET_KEY = '94tv0s)1qnkgpog9qef$=abqxcx3t&w))zhjb2)qxjc2g+2nnj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['captaincamac.pythonanywhere.com']
 
 
 # Application definition
@@ -123,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -139,7 +140,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 #EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-EMAIL_HOST_USER = "ivanov9990888"
-EMAIL_HOST_PASSWORD = "ivanov99_"
+EMAIL_HOST_USER = "ivanovv904483"
+EMAIL_HOST_PASSWORD = "cgnfavvxnckixlqr"
 
-#superadmin and Testing321
+#superadmin: and Testing321
