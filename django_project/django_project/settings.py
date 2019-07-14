@@ -25,12 +25,14 @@ SECRET_KEY = '94tv0s)1qnkgpog9qef$=abqxcx3t&w))zhjb2)qxjc2g+2nnj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['captaincamac.pythonanywhere.com']
+ALLOWED_HOSTS = ['captaincamac.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'base.apps.BaseConfig',
+    # 'mymessages.apps.MymessagesConfig',
     'crispy_forms',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',

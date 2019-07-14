@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block content %}
+    <h1 class="mb-3">All Users</h1>
+    {% for user in users %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <h2 class="article-title"><a class="mr-2" href="{% url 'profile' user.id %}">{{ user.username }}</a></h2>
+                    <small class="text-muted">User id: {{ user.id }}</small>
+                    </br>
+                <a class="mr-2" href="{% url 'profile' user.id %}">User profile</a>
+                <a class="mr-2" href="{% url 'user-posts' user.username %}">User posts ({{ user.post_set.count }})</a>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+
+
+
+{% endblock content %}
