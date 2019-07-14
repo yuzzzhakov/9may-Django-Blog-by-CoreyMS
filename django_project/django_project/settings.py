@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['captaincamac.pythonanywhere.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'base.apps.BaseConfig',
-    # 'mymessages.apps.MymessagesConfig',
+    'dialogs.apps.DialogsConfig',
     'crispy_forms',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',

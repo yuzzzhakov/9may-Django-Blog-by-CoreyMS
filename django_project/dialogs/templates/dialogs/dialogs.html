@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="content-section">
+            <div class="contentminpad">
+                {% for user in users %}
+                <div>
+                    <form action="{% url 'dialog-check' user.id %}" method='get'>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light btn-block button-class">{{ user.username }}</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="content-section">
+            {% if chat %}
+                {% if has_mess %}
+                    {% for message in chat.messages.all %}
+                        Sender: {{ message.sender.username }}</br>
+                        Date send: {{ message.date_send }}</br>
+                        Message: {{ message.content }}</br>
+                        </br>
+                    {% endfor %}
+                {% else %}
+                    Тут пока нет сообщений
+                {% endif %}
+            {% else %}
+                Нажми на пользователя, чтобы открыть чат
+            {% endif %}
+        </div>
+        {% if chat %}
+            <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+<!--                        <legend class="border-bottom mb-4">Blog Post</legend>-->
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock content %}
