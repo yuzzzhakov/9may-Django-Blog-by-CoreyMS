@@ -19,13 +19,20 @@
         </div>
     </div>
     <div class="col-md-9">
+
+        {% if chat %}
+        <div class="content-section">
+            Получатель: {{ receiver.username }}
+        </div>
+        {% endif %}
+
         <div class="content-section">
             {% if chat %}
                 {% if has_mess %}
                     {% for message in chat.messages.all %}
-                        Sender: {{ message.sender.username }}</br>
-                        Date send: {{ message.date_send }}</br>
-                        Message: {{ message.content }}</br>
+                        {{ message.sender.username }}</br>
+                        {{ message.date_send }}</br>
+                        {{ message.content }}</br>
                         </br>
                     {% endfor %}
                 {% else %}
@@ -35,19 +42,31 @@
                 Нажми на пользователя, чтобы открыть чат
             {% endif %}
         </div>
+
         {% if chat %}
-            <div class="content-section">
-                <form method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-<!--                        <legend class="border-bottom mb-4">Blog Post</legend>-->
-                        {{ form|crispy }}
-                    </fieldset>
+        <div class="content-section">
+            <form action="{% url 'message-create' chat.id %}" method="post">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <!--                        <legend class="border-bottom mb-4">Blog Post</legend>-->
+                    {% for field in form %}
                     <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Отправить</button>
+                        {% if field.errors %}
+                        <div class=".alert.alert-danger">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+
+                        {{ field.label }}
+                        {{ field }}
                     </div>
-                </form>
-            </div>
+                    {% endfor %}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
         {% endif %}
     </div>
 </div>

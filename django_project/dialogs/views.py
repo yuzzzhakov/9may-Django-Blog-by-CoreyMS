@@ -1,13 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import (
-    ListView,
-    CreateView,
-)
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+
 from .models import Message, Chat
+from .forms import MessageForm
 from django.contrib.auth.models import User
-from django.views.generic import View
+from django.views.generic import View, CreateView
 
 
 class Dialogs(LoginRequiredMixin, View):
@@ -49,38 +47,40 @@ class DialogCheck(LoginRequiredMixin, View):
 
 class DialogView(LoginRequiredMixin, View):
     template = 'dialogs/dialogs.html'
+    model_form = MessageForm
 
     def get(self, request, id):
         users = User.objects.all()
         has_mess = False
         chat = Chat.objects.get(id=id)
+
+        members = chat.members.all()
+
+        for user in members:
+            if user != self.request.user:
+                receiver = user
+            else:
+                receiver = self.request.user
+
         if chat.messages.count() != 0:
             has_mess = True
-        return render(request, self.template, context={'users': users, 'chat': chat, 'has_mess': has_mess})
+        return render(request, self.template, context={'users': users, 'chat': chat, 'receiver': receiver, 'has_mess': has_mess, 'form': self.model_form})
 
 
+class MessageCreate(LoginRequiredMixin, View):
+    model_form = MessageForm
+    raise_exception = True
 
+    def post(self, request, id):
+        bound_form = self.model_form(request.POST)
 
+        if bound_form.is_valid():
+            bound_form.instance.sender = self.request.user
+            bound_form.instance.chat = Chat.objects.get(id=id)
+            bound_form.save()
+            # chat = bound_form.instance.chat
+            return redirect('dialog-view', id=id)
 
-# class MessageCreate(LoginRequiredMixin, View):
-#     model_form = MessageForm
-#     template = 'mymessages/message_form.html'
-#     raise_exception = True
-#
-#     def get(self, request):
-#         form = self.model_form()
-#         return render(request, self.template, context={'form': form})
-#
-#     def post(self, request):
-#         bound_form = self.model_form(request.POST)
-#
-#         if bound_form.is_valid():
-#             bound_form.instance.sender = self.request.user
-#             bound_form.instance.chat.members.add(self.request.user)
-#             bound_form.save()
-#             id = bound_form.instance.chat.id
-#             return redirect('chat_detail', id)
-#         return redirect(request, self.template, context={'form': bound_form})
 
 
 
