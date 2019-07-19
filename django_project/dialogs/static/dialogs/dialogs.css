@@ -1,14 +1,52 @@
-.contentminpad {
-    margin-right: -20px;
-    margin-left: -20px;
-    margin-top: -10px;
-    margin-bot: -10px;
-
+.content-section-flex {
+    display: flex;
+    flex-direction: column;
 }
 
-.button-class {
+.btn-my {
     text-align: left;
     margin-bot: 1px;
-    background-color: ##FFFFFF;
+    background-color: #FFFFFF;
 }
 
+.sender-img {
+    height: 40px;
+    width: 40px;
+}
+
+.message {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.message-no-img {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.message-sender-and-date {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    align-items: baseline;
+}
+
+.message-sender {
+    margin-right: 10px;
+}
+
+.message-sender-text {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #006400;
+}
+
+.message-date-send {
+    font-size: 10pt;
+    color: #808080
+}
+
+.message-content {
+    font-size: 11pt;
+}

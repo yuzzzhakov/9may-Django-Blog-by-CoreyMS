@@ -5,50 +5,62 @@
 
 <div class="row">
     <div class="col-md-3">
-        <div class="content-section">
-            <div class="contentminpad">
-                {% for user in users %}
-                <div>
-                    <form action="{% url 'dialog-check' user.id %}" method='get'>
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-light btn-block button-class">{{ user.username }}</button>
-                    </form>
-                </div>
-                {% endfor %}
+        <div class="content-section content-section-flex">
+            {% for user in users %}
+            <div>
+                <form action="{% url 'dialog-check' user.id %}" method='get'>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-light btn-block btn-my">{{ user.username }}</button>
+                </form>
             </div>
+            {% endfor %}
         </div>
     </div>
     <div class="col-md-9">
 
         {% if chat %}
-        <div class="content-section">
+        <div class="content-section content-section-flex">
             Получатель: {{ receiver.username }}
         </div>
         {% endif %}
 
-        <div class="content-section">
-            {% if chat %}
-                {% if has_mess %}
-                    {% for message in chat.messages.all %}
-                        {{ message.sender.username }}</br>
-                        {{ message.date_send }}</br>
-                        {{ message.content }}</br>
-                        </br>
-                    {% endfor %}
-                {% else %}
-                    Тут пока нет сообщений
-                {% endif %}
-            {% else %}
-                Нажми на пользователя, чтобы открыть чат
-            {% endif %}
+
+        {% if chat %}
+        {% if has_mess %}
+        <div class="content-section content-section-flex">
+            {% for message in chat.messages.all %}
+            <div class="message">
+                <img class="rounded-circle article-img sender-img" src="{{ message.sender.profile.image.url }}">
+                <div class="message-no-img">
+                    <div class="message-sender-and-date">
+                        <div class="message-sender">
+                            <a class="message-sender-text" href="{% url 'profile' message.sender.id %}">{{ message.sender.username }}</a>
+                        </div>
+                        <div class="message-date-send">
+                            {{ message.date_send }}
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        {{ message.content }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+        {% else %}
+        Тут пока нет сообщений
+        {% endif %}
+        {% else %}
+        Нажми на пользователя, чтобы открыть чат
+        {% endif %}
+
 
         {% if chat %}
         <div class="content-section">
             <form action="{% url 'message-create' chat.id %}" method="post">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <!--                        <legend class="border-bottom mb-4">Blog Post</legend>-->
+                    <!-- <legend class="border-bottom mb-4">Blog Post</legend>-->
                     {% for field in form %}
                     <div class="form-group">
                         {% if field.errors %}
