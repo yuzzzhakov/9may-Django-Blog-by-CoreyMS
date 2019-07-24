@@ -9,9 +9,14 @@ class Chat(models.Model):
     chat_name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='profile_pics', blank=True)
     type = models.CharField(max_length=1, default='')
+    last_message_send_date = models.DateTimeField(default=None, blank=True, null=True)
 
     def __str__(self):
-        return f'Chatname: {self.chat_name}; members: {self.members.all()}'
+        return f'Members: {self.members.all()}'
+
+    def last_message(self):
+        return (self.messages.all().last()).content[0:20]
+
 
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
@@ -32,7 +37,7 @@ class Message(models.Model):
     is_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Message {self.content} from {self.sender} to {self.chat} with date {self.date_send}'
+        return f'Sender: {self.sender}; Chat: {self.chat}, Content: {self.content}'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

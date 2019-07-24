@@ -4,30 +4,43 @@
 
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="content-section content-section-flex">
-            {% for user in users %}
-            <div>
-                <form action="{% url 'dialog-check' user.id %}" method='get'>
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-light btn-block btn-my">{{ user.username }}</button>
-                </form>
+    <div class="col-md-4">
+        <div class="all-dialogs">
+            {% for chat, receiver in list %}
+            <div class="get-dialog" onclick="location.href='{% url 'dialog-view' chat.id %}'">
+                <img class="rounded-circle dialog-img " src="{{ receiver.profile.image.url }}">
+                <div class="get-dialog-no-img">
+                    <div class="message-receiver-and-date">
+                        <div class="message-receiver">
+                            {{ receiver.username }}
+                        </div>
+                        <div class="message-date">
+                            {{ chat.last_message_send_date }}
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        {{ chat.last_message }}
+                    </div>
+                </div>
             </div>
+            <hr class="hr-1" align="right" size="1"/>
             {% endfor %}
         </div>
     </div>
-    <div class="col-md-9">
-
+    <div class="col-md-8">
         {% if chat %}
         <div class="content-section content-section-flex">
-            Получатель: {{ receiver.username }}
+            <div class="receiver">
+                <img class="rounded-circle article-img sender-img" src="{{ receiver.profile.image.url }}">
+                <div class="receiver-username">
+                    {{ receiver.username }}
+                </div>
+            </div>
         </div>
         {% endif %}
 
-
         {% if chat %}
-        {% if has_mess %}
-        <div class="content-section content-section-flex">
+        <div class="content-section content-section-flex overflow" id="block">
             {% for message in chat.messages.all %}
             <div class="message">
                 <img class="rounded-circle article-img sender-img" src="{{ message.sender.profile.image.url }}">
@@ -47,11 +60,16 @@
             </div>
             {% endfor %}
         </div>
+
+        <script type="text/javascript">
+            var block = document.getElementById("block");
+            block.scrollTop = block.scrollHeight;
+        </script>
+
         {% else %}
-        Тут пока нет сообщений
-        {% endif %}
-        {% else %}
-        Нажми на пользователя, чтобы открыть чат
+        <div class="content-section linkBlock" onclick="location.href='#'">
+            Нажми на пользователя, чтобы открыть чат
+        </div>
         {% endif %}
 
 
