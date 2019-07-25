@@ -4,6 +4,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.contrib.auth.models import User
+from friends.utils import outcome_friend_requests
 
 
 def register(request):
@@ -46,8 +47,12 @@ def options(request):
 
 class ProfileView(View):
     def get(self, request, id):
-        user = get_object_or_404(User, id=id)
-        return render(request, 'users/profile.html', context={'user': user})
+        user = User.objects.get(id=id)
+        f_status = ''
+        if user in outcome_friend_requests(id=self.request.user.id):
+            f_status = 'sended'
+
+        return render(request, 'users/profile.html', context={'user': user, 'f_status': f_status})
 
 
 

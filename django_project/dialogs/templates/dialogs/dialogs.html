@@ -26,6 +26,28 @@
             <hr class="hr-1" align="right" size="1"/>
             {% endfor %}
         </div>
+        <div class="all-dialogs">
+            {% for user in friends_without_chat %}
+            <div class="get-dialog" onclick="location.href='{% url 'dialog-create' user.id %}'">
+                <img class="rounded-circle dialog-img " src="{{ user.profile.image.url }}">
+                <div class="get-dialog-no-img">
+                    <div class="message-receiver-and-date">
+                        <div class="message-receiver">
+                            {{ user.username }}
+                        </div>
+                        <div class="message-date">
+
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        No messages yet
+                    </div>
+                </div>
+            </div>
+            <hr class="hr-1" align="right" size="1"/>
+            {% endfor %}
+        </div>
+
     </div>
     <div class="col-md-8">
         {% if chat %}

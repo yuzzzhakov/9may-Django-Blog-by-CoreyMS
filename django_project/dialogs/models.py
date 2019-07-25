@@ -15,7 +15,10 @@ class Chat(models.Model):
         return f'Members: {self.members.all()}'
 
     def last_message(self):
-        return (self.messages.all().last()).content[0:20]
+        if self.messages.all().last():
+            return (self.messages.all().last()).content[0:20]
+        else:
+            return ('No messages yet')
 
 
     # def save(self, *args, **kwargs):

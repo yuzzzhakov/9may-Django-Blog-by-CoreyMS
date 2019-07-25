@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('dialogs.urls')),
     path('', include('users.urls')),
     path('', include('base.urls')),
+    path('', include('friends.urls')),
 ]
 
 if settings.DEBUG:
