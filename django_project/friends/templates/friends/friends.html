@@ -1,9 +1,9 @@
 {% extends "base/base.html" %}
 {% block content %}
-    {% if f_requests %}
-        <h1 class="mb-3">Incoming requests</h1>
+    {% if income_friend_requests %}
+        <h1 class="mb-3">Income requests</h1>
     {% endif %}
-    {% for user in f_requests %}
+    {% for user in income_friend_requests %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
             <div class="media-body">
@@ -15,10 +15,32 @@
                 <a class="mr-2" href="{% url 'user-posts' user.username %}">User posts ({{ user.post_set.count }})</a>
                 </div>
             </div>
+            <a class="btn btn-primary btn-sm" href="{% url 'apply-to-friends' user.id %}" role="button">User send a request. Add to friends</a>
         </article>
     {% endfor %}
 
-    <h1 class="mb-3">My friends</h1>
+    {% if outcome_friend_requests %}
+        <h1 class="mb-3">Outcome requests</h1>
+    {% endif %}
+    {% for user in outcome_friend_requests %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <h2 class="article-title"><a class="mr-2" href="{% url 'profile' user.id %}">{{ user.username }}</a></h2>
+                    <small class="text-muted">User id: {{ user.id }}</small>
+                    </br>
+                <a class="mr-2" href="{% url 'profile' user.id %}">User profile</a>
+                <a class="mr-2" href="{% url 'user-posts' user.username %}">User posts ({{ user.post_set.count }})</a>
+                </div>
+            </div>
+            <a class="btn btn-primary btn-sm disabled" href="#" role="button" aria-disabled="true">You send a request</a>
+        </article>
+    {% endfor %}
+
+    {% if friends %}
+        <h1 class="mb-3">My Friends</h1>
+    {% endif %}
     {% for user in friends %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
@@ -31,6 +53,30 @@
                 <a class="mr-2" href="{% url 'user-posts' user.username %}">User posts ({{ user.post_set.count }})</a>
                 </div>
             </div>
+            <a class="btn btn-primary btn-sm" href="{% url 'delete-from-friends' user.id %}" role="button">You are friends. Delete from friends</a>
+        </article>
+    {% endfor %}
+
+    {% if other_users %}
+        <h1 class="mb-3">Other Users</h1>
+    {% endif %}
+    {% for user in other_users %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <h2 class="article-title"><a class="mr-2" href="{% url 'profile' user.id %}">{{ user.username }}</a></h2>
+                    <small class="text-muted">User id: {{ user.id }}</small>
+                    </br>
+                <a class="mr-2" href="{% url 'profile' user.id %}">User profile</a>
+                <a class="mr-2" href="{% url 'user-posts' user.username %}">User posts ({{ user.post_set.count }})</a>
+                </div>
+            </div>
+            {% if user == request.user %}
+                <a class="btn btn-primary btn-sm disabled" aria-disabled="true" href="#" role="button">It's you</a>
+            {% else %}
+                <a class="btn btn-primary btn-sm" href="{% url 'add-to-friends' user.id %}" role="button">Add to friends</a>
+            {% endif %}
         </article>
     {% endfor %}
 

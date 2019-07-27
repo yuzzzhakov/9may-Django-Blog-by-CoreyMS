@@ -51,7 +51,6 @@
 
 
     <div class="col-md-8">
-        {% if dialog %}
         <div class="content-section content-section-flex">
             <div class="receiver">
                 <img class="rounded-circle article-img sender-img" src="{{ receiver.profile.image.url }}">
@@ -86,16 +85,8 @@
             block.scrollTop = block.scrollHeight;
         </script>
 
-        {% else %}
-        <div class="content-section linkBlock" onclick="location.href='#'">
-            Нажми на пользователя, чтобы открыть чат
-        </div>
-        {% endif %}
-
-
-        {% if dialog %}
         <div class="content-section">
-            <form action="{% url 'message-create' dialog.id %}" method="post">
+            <form action="{% url 'dialog-create' receiver.id %}" method="post">
                 {% csrf_token %}
                 <fieldset class="form-group">
                     {% for field in MessageForm %}
@@ -116,7 +107,6 @@
                 </div>
             </form>
         </div>
-        {% endif %}
     </div>
 </div>
 

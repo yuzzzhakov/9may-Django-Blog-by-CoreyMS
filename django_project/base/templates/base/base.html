@@ -30,9 +30,9 @@
 
 
     {% if title %}
-        <title>CaptainCamac - {{ title }}</title>
+        <title>Social Network - {{ title }}</title>
     {% else %}
-        <title>CaptainCamac</title>
+        <title>Social Network</title>
     {% endif %}
 
 </head>
@@ -42,7 +42,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">CaptainCamac</a>
+                <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Social Network</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -81,7 +81,7 @@
                     <div class="menu-item" onclick="location.href='{% url 'profile' user.id %}'">
                         My Profile
                     </div>
-                    <div class="menu-item" onclick="location.href='{% url 'friends' %}'">
+                    <div class="menu-item" onclick="location.href='{% url 'my-friends' %}'">
                         My Friends
                     </div>
                     <div class="menu-item" onclick="location.href='{% url 'post-create' %}'">

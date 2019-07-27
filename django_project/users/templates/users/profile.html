@@ -5,22 +5,26 @@
         <div class="media">
             <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
             <div class="media-body">
-                <h2 class="account-heading">{{ user.username }} - Profile</h2>
-                <p class="text-secondary">{{ user.email }}</p>
+                <h2 class="account-heading">{{ viewed_user.username }} - Profile</h2>
+                <p class="text-secondary">{{ viewed_user.email }}</p>
             </div>
         </div>
-        <a class="btn btn-primary btn-sm" href="{% url 'user-posts' user.username %}" role="button">Posts by {{ user.username }}</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'user-posts' viewed_user.username %}" role="button">Posts by {{ viewed_user.username }}</a>
         {% if user.is_authenticated %}
-            <a class="btn btn-primary btn-sm" href="{% url 'dialog-create' user.id %}" role="button">Write a message</a>
-            {% if request.user != user %}
-                {% if f_status == 'sended' %}
-                <a class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Request for friendship was made</a>
-                {% elif f_status == '' %}
-                <a class="btn btn-primary btn-sm" href="{% url 'make-friend' user.id %}" role="button">Add to friends</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'dialog-check' viewed_user.id %}" role="button">Write a message</a>
+            {% if request.user != viewed_user %}
+                {% if friend_status == 'not_friend' %}
+                <a class="btn btn-primary btn-sm" href="{% url 'add-to-friends' viewed_user.id %}" role="button">Add to friends</a>
+                {% elif friend_status == 'friend' %}
+                <a class="btn btn-primary btn-sm" href="{% url 'delete-from-friends' viewed_user.id %}" role="button">You are friends. Delete from friends</a>
+                {% elif friend_status == 'request_to_friends' %}
+                <a class="btn btn-primary btn-sm" href="{% url 'apply-to-friends' viewed_user.id %}" role="button">User send a request. Add to friends</a>
+                {% elif friend_status == 'you_sent_request' %}
+                <a class="btn btn-primary btn-sm disabled" href="#" role="button" aria-disabled="true">You send a request</a>
                 {% endif %}
             {% endif %}
-            {% if request.user == user %}
-            <a class="btn btn-secondary btn-sm" href="{% url 'options' %}" role="button">Options</a>
+            {% if request.user == viewed_user %}
+                <a class="btn btn-secondary btn-sm" href="{% url 'options' %}" role="button">Options</a>
             {% endif %}
         {% endif %}
     </div>
