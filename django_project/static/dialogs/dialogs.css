@@ -1,0 +1,134 @@
+.content-section-flex {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -1px;
+}
+
+.btn-my {
+    text-align: left;
+    margin-bot: 1px;
+    background-color: #FFFFFF;
+}
+
+.sender-img {
+    height: 40px;
+    width: 40px;
+}
+
+.message {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.message-no-img {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.message-sender-and-date {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    align-items: baseline;
+}
+
+.message-sender {
+    margin-right: 10px;
+}
+
+.message-sender-text {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #006400;
+}
+
+.message-date-send {
+    font-size: 10pt;
+    color: #808080
+}
+
+.message-content {
+    font-size: 11pt;
+}
+
+.linkBlock {
+    cursor: pointer;
+}
+
+.all-dialogs {
+    display: flex;
+    flex-direction: column;
+    margin-left: -15px;
+    margin-right: -15px;
+    border: 1px solid #dddddd;
+    margin-bottom: -2px;
+}
+
+.get-dialog {
+    display: flex;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #ffffff;
+    height: 64px;
+    align-items: center;
+}
+
+.get-dialog:hover {
+    background-color: #cecece;
+}
+
+.hr-1 {
+    margin: 0;
+    width: 100%;
+    height: 0;
+    opacity: 1;
+    border: none;
+    border-top: 1px solid #dddddd;
+}
+
+.dialog-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 16px;
+}
+
+.get-dialog-no-img {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.message-receiver-and-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.message-receiver {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #006400;
+}
+
+.message-date {
+    font-size: 8pt;
+}
+
+.receiver {
+    display: flex;
+    align-items: center;
+}
+
+.receiver-username {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #006400;
+}
+
+.overflow {
+    height: 400px;
+    /*justify-content: flex-end;*/
+    overflow: auto;
+}
