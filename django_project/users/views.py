@@ -4,7 +4,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.contrib.auth.models import User
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from dialogs.models import UserDialogs
 from friends.models import UserFriends
 
@@ -51,7 +51,7 @@ def options(request):
     return render(request, 'users/options.html', context)
 
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, request, id):
         me = self.request.user
         viewed_user = User.objects.get(id=id)
