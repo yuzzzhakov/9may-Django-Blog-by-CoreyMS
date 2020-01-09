@@ -1,7 +1,20 @@
-﻿### Django ###
+﻿
+/.idea/*
+/wenv/*
+/lenv/*
+/envl/*
+/envw/*
+
+# Django #
 *.log
 *.pot
 *.pyc
-__pycache__/
-.idea/
-git status
+__pycache__
+
+# Python #
+*.py[cod]
+*$py.class
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
